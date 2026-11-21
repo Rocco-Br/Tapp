@@ -26,3 +26,12 @@ See [docs/FEATURES.md](docs/FEATURES.md) for scope.
 ## First admin
 
 On startup, if `Admin__Password` is set and no admin exists, an admin is created (`Admin__Username`, default `admin`). Other users are created by an admin via `POST /api/users`.
+
+## Run
+
+```bash
+docker build -t tapp .
+docker run -p 8080:8080 -v tapp-data:/data -e Admin__Password=change-me tapp
+```
+
+Development: `dotnet run` in `api/Tapp.Api` (port 5000) and `npm run dev` in `web/`, which proxies `/api` to the API.
