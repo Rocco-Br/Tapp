@@ -1,32 +1,13 @@
 using System.Net;
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
 namespace Tapp.Api.Tests;
 
-public class AuthTests : IClassFixture<AuthTests.Factory>
+public class AuthTests : IClassFixture<TestFactory>
 {
-    public class Factory : WebApplicationFactory<Program>
-    {
-        private readonly string _db = Path.Combine(Path.GetTempPath(), $"tapp-test-{Guid.NewGuid():N}.db");
-
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
-        {
-            builder.UseSetting("ConnectionStrings:Default", $"Data Source={_db}");
-            builder.UseSetting("Admin:Password", "admin-pass");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-            File.Delete(_db);
-        }
-    }
-
-    private readonly Factory _factory;
-    public AuthTests(Factory factory) => _factory = factory;
+    private readonly TestFactory _factory;
+    public AuthTests(TestFactory factory) => _factory = factory;
 
     private async Task<HttpClient> LoginAsync(string user, string pass)
     {
