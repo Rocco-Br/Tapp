@@ -280,6 +280,67 @@ namespace Tapp.Api.Migrations
                     b.ToTable("OptionGroup");
                 });
 
+            modelBuilder.Entity("Tapp.Api.Data.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("GuestId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PlacedById")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Tapp.Api.Data.OrderLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Options")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UnitPriceCents")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderLine");
+                });
+
             modelBuilder.Entity("Tapp.Api.Data.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -464,6 +525,13 @@ namespace Tapp.Api.Migrations
                         .HasForeignKey("ProductId");
                 });
 
+            modelBuilder.Entity("Tapp.Api.Data.OrderLine", b =>
+                {
+                    b.HasOne("Tapp.Api.Data.Order", null)
+                        .WithMany("Lines")
+                        .HasForeignKey("OrderId");
+                });
+
             modelBuilder.Entity("Tapp.Api.Data.Product", b =>
                 {
                     b.OwnsMany("Tapp.Api.Data.StockAmount", "Stock", b1 =>
@@ -505,6 +573,11 @@ namespace Tapp.Api.Migrations
             modelBuilder.Entity("Tapp.Api.Data.OptionGroup", b =>
                 {
                     b.Navigation("Options");
+                });
+
+            modelBuilder.Entity("Tapp.Api.Data.Order", b =>
+                {
+                    b.Navigation("Lines");
                 });
 
             modelBuilder.Entity("Tapp.Api.Data.Product", b =>

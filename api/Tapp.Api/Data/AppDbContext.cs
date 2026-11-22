@@ -9,6 +9,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
     public DbSet<Product> Products => Set<Product>();
     public DbSet<StockLog> StockLogs => Set<StockLog>();
     public DbSet<Event> Events => Set<Event>();
+    public DbSet<Order> Orders => Set<Order>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -23,6 +24,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
         }
 
         b.Entity<Event>().HasIndex(e => e.IsRunning).IsUnique().HasFilter("IsRunning = 1");
+
+        b.Entity<Order>().Property(o => o.Status).HasConversion<string>();
 
         b.Entity<Product>().OwnsMany(p => p.Stock, StockLink);
         b.Entity<Option>().OwnsMany(o => o.Stock, StockLink);
