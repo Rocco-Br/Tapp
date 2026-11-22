@@ -7,6 +7,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
 {
     public DbSet<StockItem> StockItems => Set<StockItem>();
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<StockLog> StockLogs => Set<StockLog>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {

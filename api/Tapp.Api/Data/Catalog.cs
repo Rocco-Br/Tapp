@@ -45,3 +45,14 @@ public class Option
     public string Name { get; set; } = "";
     public List<StockAmount> Stock { get; set; } = [];
 }
+
+// Every manual quantity change, so restocks, waste and breakage can be traced.
+public class StockLog
+{
+    public int Id { get; set; }
+    public int StockItemId { get; set; }
+    public int Delta { get; set; }
+    public string Reason { get; set; } = "";
+    public string User { get; set; } = "";
+    public DateTime At { get; set; }
+}

@@ -25,7 +25,8 @@ public static class AuthSetup
         });
 
         services.AddAuthorizationBuilder()
-            .AddPolicy(Roles.Admin, p => p.RequireRole(Roles.Admin));
+            .AddPolicy(Roles.Admin, p => p.RequireRole(Roles.Admin))
+            .AddPolicy(Roles.Staff, p => p.RequireRole(Roles.Admin, Roles.Employee));
     }
 
     // Creates the roles and, if Admin:Password is configured and no admin exists, the first admin.
