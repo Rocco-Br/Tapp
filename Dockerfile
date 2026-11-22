@@ -15,7 +15,7 @@ WORKDIR /app
 COPY --from=api /out ./
 COPY --from=web /web/build ./wwwroot
 # SQLite file and product pictures live on this volume.
-ENV ConnectionStrings__Default="Data Source=/data/tapp.db" ASPNETCORE_URLS=http://+:8080
+ENV ConnectionStrings__Default="Data Source=/data/tapp.db" Pictures__Path=/data/pictures ASPNETCORE_URLS=http://+:8080
 VOLUME /data
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "Tapp.Api.dll"]
