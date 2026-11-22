@@ -19,8 +19,14 @@ using (var scope = app.Services.CreateScope())
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapGet("/api/health", () => "ok");
 app.MapAuth();
+
+// SPA fallback for everything except /api, so unknown API paths stay 404.
+app.MapFallbackToFile("{*path:regex(^(?!api(/|$)).*$)}", "index.html");
 app.Run();
 
 public partial class Program;
