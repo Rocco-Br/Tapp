@@ -212,6 +212,34 @@ namespace Tapp.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Tapp.Api.Data.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("EndedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsRunning")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsRunning")
+                        .IsUnique()
+                        .HasFilter("IsRunning = 1");
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("Tapp.Api.Data.Option", b =>
                 {
                     b.Property<int>("Id")
