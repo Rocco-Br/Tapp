@@ -7,3 +7,4 @@ build/
 # .NET
 bin/
 obj/
+tapp.db*
