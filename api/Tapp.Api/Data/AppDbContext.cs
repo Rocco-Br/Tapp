@@ -8,6 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
     public DbSet<StockItem> StockItems => Set<StockItem>();
     public DbSet<Product> Products => Set<Product>();
     public DbSet<StockLog> StockLogs => Set<StockLog>();
+    public DbSet<Event> Events => Set<Event>();
 
     protected override void OnModelCreating(ModelBuilder b)
     {
@@ -20,6 +21,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
             o.HasKey("Id");
             o.HasOne<StockItem>().WithMany().HasForeignKey(s => s.StockItemId).OnDelete(DeleteBehavior.Restrict);
         }
+
+        b.Entity<Event>().HasIndex(e => e.IsRunning).IsUnique().HasFilter("IsRunning = 1");
 
         b.Entity<Product>().OwnsMany(p => p.Stock, StockLink);
         b.Entity<Option>().OwnsMany(o => o.Stock, StockLink);
