@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Tapp.Api.Catalog;
 using Tapp.Api.Events;
+using Tapp.Api.Orders;
 using Tapp.Api.Stock;
 using Tapp.Api.Auth;
 using Tapp.Api.Data;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(o =>
     o.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddAuth();
+builder.Services.AddOrderRateLimit();
 
 var app = builder.Build();
 
@@ -31,12 +33,14 @@ app.UseStaticFiles(new StaticFileOptions { FileProvider = new PhysicalFileProvid
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter();
 
 app.MapGet("/api/health", () => "ok");
 app.MapAuth();
 app.MapCatalog();
 app.MapStock();
 app.MapEvents();
+app.MapOrders();
 
 // SPA fallback for everything except /api and /pictures, so unknown API paths and pictures stay 404.
 app.MapFallbackToFile("{*path:regex(^(?!(api|pictures)(/|$)).*$)}", "index.html");
