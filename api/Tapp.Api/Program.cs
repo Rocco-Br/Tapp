@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Tapp.Api.Catalog;
+using Tapp.Api.Stock;
 using Tapp.Api.Auth;
 using Tapp.Api.Data;
 
@@ -33,6 +34,7 @@ app.UseAuthorization();
 app.MapGet("/api/health", () => "ok");
 app.MapAuth();
 app.MapCatalog();
+app.MapStock();
 
 // SPA fallback for everything except /api and /pictures, so unknown API paths and pictures stay 404.
 app.MapFallbackToFile("{*path:regex(^(?!(api|pictures)(/|$)).*$)}", "index.html");
