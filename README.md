@@ -21,7 +21,7 @@ Sized for home use: max ~50 guests per event. Keep it small, add nothing without
 
 Left out on purpose: microservices, separate auth server, Redis, message queue, i18n library (add when English arrives), state library, separate frontend hosting.
 
-See [docs/FEATURES.md](docs/FEATURES.md) for scope.
+See [docs/FEATURES.md](docs/FEATURES.md) for scope and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for diagrams of the components, order flow and data model.
 
 ## First admin
 
