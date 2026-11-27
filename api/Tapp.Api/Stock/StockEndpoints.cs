@@ -40,6 +40,17 @@ public static class StockEndpoints
             return Results.Ok(new StockItemDto(item.Id, item.Name, item.Unit, item.Quantity));
         }).RequireAuthorization(Roles.Admin);
 
+        // Refused while a product or option still uses the item; its log goes with it.
+        stock.MapDelete("{id:int}", async (int id, AppDbContext db) =>
+        {
+            var item = await db.StockItems.FindAsync(id);
+            if (item is null) return Results.NotFound();
+            db.StockItems.Remove(item);
+            try { await db.SaveChangesAsync(); }
+            catch (DbUpdateException) { return Results.Conflict(new { error = "Stock item is used by a product or option" }); }
+            return Results.NoContent();
+        }).RequireAuthorization(Roles.Admin);
+
         stock.MapPost("{id:int}/corrections", async (int id, CorrectionRequest r, AppDbContext db, HttpContext http) =>
         {
             if (r.Delta == 0 || string.IsNullOrWhiteSpace(r.Reason))

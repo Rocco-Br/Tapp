@@ -115,4 +115,17 @@ public class CatalogTests : IClassFixture<TestFactory>
         var path = (await ok.Content.ReadFromJsonAsync<Dictionary<string, string>>())!["picturePath"];
         Assert.Equal(HttpStatusCode.OK, (await admin.GetAsync(path)).StatusCode);
     }
+
+    [Fact]
+    public async Task Deleting_a_product_frees_its_stock_items_for_deletion()
+    {
+        var zero = AddStockItem("del zero"); var normal = AddStockItem("del normal");
+        var admin = await LoginAsync("admin", "admin-pass");
+        var p = (await (await admin.PostAsJsonAsync("/api/products", Cola(zero, normal))).Content.ReadFromJsonAsync<ProductDto>())!;
+
+        Assert.Equal(HttpStatusCode.Conflict, (await admin.DeleteAsync($"/api/stock/{zero}")).StatusCode);
+        Assert.Equal(HttpStatusCode.NoContent, (await admin.DeleteAsync($"/api/products/{p.Id}")).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await admin.DeleteAsync($"/api/products/{p.Id}")).StatusCode);
+        Assert.Equal(HttpStatusCode.NoContent, (await admin.DeleteAsync($"/api/stock/{zero}")).StatusCode);
+    }
 }

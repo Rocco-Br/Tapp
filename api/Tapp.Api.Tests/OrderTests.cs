@@ -1,3 +1,4 @@
+using Tapp.Api.Data;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -143,5 +144,23 @@ public class OrderTests
 
         Assert.Equal(5, codes.Count(x => x == HttpStatusCode.Created));
         Assert.Equal(2, codes.Count(x => x == HttpStatusCode.TooManyRequests));
+    }
+
+    [Fact]
+    public async Task Guests_see_only_their_own_orders_and_only_staff_change_status()
+    {
+        using var f = new TestFactory();
+        var c = await SetupAsync(f);
+        var mine = (await (await c.Guest.PostAsJsonAsync("/api/orders", Order(c))).Content.ReadFromJsonAsync<OrderDto>())!;
+        await c.Admin.PostAsJsonAsync("/api/users", new { username = "bert", password = "secret1", role = "guest", is18Plus = false });
+        var other = await LoginAsync(f, "bert", "secret1");
+
+        Assert.Empty((await other.GetFromJsonAsync<List<OrderDto>>("/api/orders"))!);
+        Assert.Single((await c.Guest.GetFromJsonAsync<List<OrderDto>>("/api/orders"))!);
+
+        var status = new OrderStatusRequest(OrderStatus.Served);
+        Assert.Equal(HttpStatusCode.Forbidden, (await c.Guest.PatchAsJsonAsync($"/api/orders/{mine.Id}/status", status)).StatusCode);
+        Assert.Equal(HttpStatusCode.OK, (await c.Admin.PatchAsJsonAsync($"/api/orders/{mine.Id}/status", status)).StatusCode);
+        Assert.Equal(OrderStatus.Served, (await c.Admin.GetFromJsonAsync<List<OrderDto>>("/api/orders"))!.Single().Status);
     }
 }

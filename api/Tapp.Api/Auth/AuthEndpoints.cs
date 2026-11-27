@@ -1,11 +1,14 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Tapp.Api.Data;
 
 namespace Tapp.Api.Auth;
 
 public record LoginRequest(string Username, string Password);
 public record CreateUserRequest(string Username, string Password, string Role, bool Is18Plus);
+public record UpdateUserRequest(string Role, bool Is18Plus);
+public record UserDto(string Id, string? UserName, string Role, bool Is18Plus);
 
 public static class AuthEndpoints
 {
@@ -43,6 +46,42 @@ public static class AuthEndpoints
 
             await users.AddToRoleAsync(user, r.Role);
             return Results.Created($"/api/users/{user.Id}", new { user.Id, user.UserName, r.Role, user.Is18Plus });
+        }).RequireAuthorization(Roles.Admin);
+
+        app.MapGet("/api/users", async (UserManager<AppUser> users) =>
+        {
+            var list = new List<UserDto>();
+            foreach (var u in await users.Users.OrderBy(u => u.UserName).ToListAsync())
+                list.Add(new UserDto(u.Id, u.UserName, (await users.GetRolesAsync(u)).FirstOrDefault() ?? "", u.Is18Plus));
+            return list;
+        }).RequireAuthorization(Roles.Admin);
+
+        // An admin cannot change or delete their own account, so there is always at least one admin left.
+        app.MapPut("/api/users/{id}", async (string id, UpdateUserRequest r, ClaimsPrincipal principal, UserManager<AppUser> users) =>
+        {
+            if (!Roles.All.Contains(r.Role))
+                return Results.ValidationProblem(new Dictionary<string, string[]> { ["role"] = [$"Must be one of: {string.Join(", ", Roles.All)}"] });
+            var user = await users.FindByIdAsync(id);
+            if (user is null) return Results.NotFound();
+            if (user.Id == users.GetUserId(principal)) return Results.Conflict(new { error = "You cannot change your own account" });
+
+            user.Is18Plus = r.Is18Plus;
+            await users.UpdateAsync(user);
+            await users.RemoveFromRolesAsync(user, await users.GetRolesAsync(user));
+            await users.AddToRoleAsync(user, r.Role);
+            return Results.Ok(new UserDto(user.Id, user.UserName, r.Role, user.Is18Plus));
+        }).RequireAuthorization(Roles.Admin);
+
+        // Users with orders stay, so event history keeps its guests.
+        app.MapDelete("/api/users/{id}", async (string id, ClaimsPrincipal principal, UserManager<AppUser> users, AppDbContext db) =>
+        {
+            var user = await users.FindByIdAsync(id);
+            if (user is null) return Results.NotFound();
+            if (user.Id == users.GetUserId(principal)) return Results.Conflict(new { error = "You cannot delete your own account" });
+            if (await db.Orders.AnyAsync(o => o.GuestId == id || o.PlacedById == id))
+                return Results.Conflict(new { error = "User has orders" });
+            await users.DeleteAsync(user);
+            return Results.NoContent();
         }).RequireAuthorization(Roles.Admin);
     }
 }

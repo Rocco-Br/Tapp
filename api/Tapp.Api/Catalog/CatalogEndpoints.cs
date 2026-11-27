@@ -50,6 +50,17 @@ public static class CatalogEndpoints
             return Results.Ok(ToDto(p));
         }).RequireAuthorization(Roles.Admin);
 
+        // Option groups, options and stock links cascade; order lines keep their copied name and price.
+        products.MapDelete("{id:int}", async (int id, AppDbContext db, IConfiguration config) =>
+        {
+            var p = await IncludeAll(db.Products).FirstOrDefaultAsync(x => x.Id == id);
+            if (p is null) return Results.NotFound();
+            db.Products.Remove(p);
+            await db.SaveChangesAsync();
+            if (p.PicturePath is not null) File.Delete(Path.Combine(PicturesDir(config), Path.GetFileName(p.PicturePath)));
+            return Results.NoContent();
+        }).RequireAuthorization(Roles.Admin);
+
         // Antiforgery off: the auth cookie is SameSite=Lax, so cross-site form posts carry no cookie.
         products.MapPost("{id:int}/picture", async (int id, IFormFile file, AppDbContext db, IConfiguration config) =>
         {
