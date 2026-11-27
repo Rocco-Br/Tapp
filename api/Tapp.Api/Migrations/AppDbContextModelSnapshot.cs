@@ -250,7 +250,7 @@ namespace Tapp.Api.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("OptionGroupId")
+                    b.Property<int>("OptionGroupId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -270,7 +270,7 @@ namespace Tapp.Api.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -306,6 +306,12 @@ namespace Tapp.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("GuestId");
+
+                    b.HasIndex("PlacedById");
+
                     b.ToTable("Orders");
                 });
 
@@ -318,7 +324,7 @@ namespace Tapp.Api.Migrations
                     b.Property<string>("Options")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductId")
@@ -422,6 +428,8 @@ namespace Tapp.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("StockItemId");
+
                     b.ToTable("StockLogs");
                 });
 
@@ -480,7 +488,9 @@ namespace Tapp.Api.Migrations
                 {
                     b.HasOne("Tapp.Api.Data.OptionGroup", null)
                         .WithMany("Options")
-                        .HasForeignKey("OptionGroupId");
+                        .HasForeignKey("OptionGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.OwnsMany("Tapp.Api.Data.StockAmount", "Stock", b1 =>
                         {
@@ -522,14 +532,39 @@ namespace Tapp.Api.Migrations
                 {
                     b.HasOne("Tapp.Api.Data.Product", null)
                         .WithMany("OptionGroups")
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Tapp.Api.Data.Order", b =>
+                {
+                    b.HasOne("Tapp.Api.Data.Event", null)
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Tapp.Api.Data.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("GuestId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Tapp.Api.Data.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("PlacedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tapp.Api.Data.OrderLine", b =>
                 {
                     b.HasOne("Tapp.Api.Data.Order", null)
                         .WithMany("Lines")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tapp.Api.Data.Product", b =>
@@ -568,6 +603,15 @@ namespace Tapp.Api.Migrations
                         });
 
                     b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("Tapp.Api.Data.StockLog", b =>
+                {
+                    b.HasOne("Tapp.Api.Data.StockItem", null)
+                        .WithMany()
+                        .HasForeignKey("StockItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tapp.Api.Data.OptionGroup", b =>
