@@ -10,6 +10,7 @@ namespace Tapp.Api.Orders;
 public record OrderLineRequest(int ProductId, int Quantity, List<int>? OptionIds);
 public record PlaceOrderRequest(string? GuestId, List<OrderLineRequest> Lines);
 public record OrderLineDto(int ProductId, string ProductName, string? Options, int UnitPriceCents, int Quantity);
+public record OrderStatusRequest(OrderStatus Status);
 public record OrderDto(int Id, int EventId, string GuestId, OrderStatus Status, DateTime CreatedAt, int TotalCents, List<OrderLineDto> Lines);
 
 public static class OrderEndpoints
@@ -32,7 +33,33 @@ public static class OrderEndpoints
     public static void MapOrders(this WebApplication app)
     {
         app.MapPost("/api/orders", PlaceAsync).RequireAuthorization().RequireRateLimiting("orders");
+
+        // Orders of the running event: staff see all, guests only their own.
+        app.MapGet("/api/orders", async (ClaimsPrincipal principal, UserManager<AppUser> users, AppDbContext db) =>
+        {
+            var q = db.Orders.AsNoTracking().Include(o => o.Lines).Where(o => db.Events.Any(e => e.IsRunning && e.Id == o.EventId));
+            if (!principal.IsInRole(Roles.Admin) && !principal.IsInRole(Roles.Employee))
+            {
+                var me = users.GetUserId(principal);
+                q = q.Where(o => o.GuestId == me);
+            }
+            return (await q.OrderByDescending(o => o.Id).ToListAsync()).Select(ToDto);
+        }).RequireAuthorization();
+
+        app.MapPatch("/api/orders/{id:int}/status", async (int id, OrderStatusRequest r, AppDbContext db) =>
+        {
+            if (!Enum.IsDefined(r.Status)) return Problem("status", "Unknown status");
+            var order = await db.Orders.Include(o => o.Lines).FirstOrDefaultAsync(o => o.Id == id);
+            if (order is null) return Results.NotFound();
+            order.Status = r.Status;
+            await db.SaveChangesAsync();
+            return Results.Ok(ToDto(order));
+        }).RequireAuthorization(Roles.Staff);
     }
+
+    private static OrderDto ToDto(Order o) => new(o.Id, o.EventId, o.GuestId, o.Status, o.CreatedAt,
+        o.Lines.Sum(l => l.UnitPriceCents * l.Quantity),
+        o.Lines.Select(l => new OrderLineDto(l.ProductId, l.ProductName, l.Options, l.UnitPriceCents, l.Quantity)).ToList());
 
     private static IResult Problem(string key, string message) =>
         Results.ValidationProblem(new Dictionary<string, string[]> { [key] = [message] });
@@ -102,8 +129,6 @@ public static class OrderEndpoints
         await db.SaveChangesAsync();
         await tx.CommitAsync();
 
-        return Results.Created($"/api/orders/{order.Id}", new OrderDto(order.Id, order.EventId, order.GuestId, order.Status, order.CreatedAt,
-            order.Lines.Sum(l => l.UnitPriceCents * l.Quantity),
-            order.Lines.Select(l => new OrderLineDto(l.ProductId, l.ProductName, l.Options, l.UnitPriceCents, l.Quantity)).ToList()));
+        return Results.Created($"/api/orders/{order.Id}", ToDto(order));
     }
 }
