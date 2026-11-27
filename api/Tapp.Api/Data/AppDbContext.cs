@@ -26,6 +26,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
         b.Entity<Event>().HasIndex(e => e.IsRunning).IsUnique().HasFilter("IsRunning = 1");
 
         b.Entity<Order>().Property(o => o.Status).HasConversion<string>();
+        b.Entity<Order>().HasOne<Event>().WithMany().HasForeignKey(o => o.EventId).OnDelete(DeleteBehavior.Restrict);
+        b.Entity<Order>().HasOne<AppUser>().WithMany().HasForeignKey(o => o.GuestId).OnDelete(DeleteBehavior.Restrict);
+        b.Entity<Order>().HasOne<AppUser>().WithMany().HasForeignKey(o => o.PlacedById).OnDelete(DeleteBehavior.Restrict);
+        b.Entity<Order>().HasMany(o => o.Lines).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+
+        b.Entity<StockLog>().HasOne<StockItem>().WithMany().HasForeignKey(l => l.StockItemId).OnDelete(DeleteBehavior.Cascade);
+
+        b.Entity<Product>().HasMany(p => p.OptionGroups).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
+        b.Entity<OptionGroup>().HasMany(g => g.Options).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
 
         b.Entity<Product>().OwnsMany(p => p.Stock, StockLink);
         b.Entity<Option>().OwnsMany(o => o.Stock, StockLink);
