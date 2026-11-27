@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" width="1280" height="820" font-family="system-ui, sans-serif">
+<title>Wireframe bestellingen voor medewerkers, desktop</title>
+<rect width="1280" height="820" fill="#faf8f5"/>
+<rect x="0" y="0" width="1280" height="64" rx="0" fill="#ffffff" stroke="#e5e1da"/>
+<text x="32" y="40" font-size="22" fill="#c2410c" font-weight="700" text-anchor="start">Tapp</text>
+<text x="200" y="40" font-size="15" fill="#c2410c" font-weight="600" text-anchor="start">Bestellingen</text>
+<text x="330" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Producten</text>
+<text x="460" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Voorraad</text>
+<text x="590" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Events</text>
+<text x="720" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Gebruikers</text>
+<text x="1248" y="40" font-size="14" fill="#5b6470" font-weight="400" text-anchor="end">admin · Uitloggen</text>
+<text x="32" y="120" font-size="28" fill="#1f2328" font-weight="600" text-anchor="start">Bestellingen · event "Verjaardag"</text>
+<rect x="32" y="150" width="396" height="620" rx="6" fill="#f4f1ec" stroke="#e5e1da"/>
+<text x="48" y="182" font-size="16" fill="#1f2328" font-weight="600" text-anchor="start">Nieuw (3)</text>
+<rect x="48" y="200" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="64" y="230" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#12 · Anna · 21:00</text>
+<text x="64" y="258" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="64" y="280" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="64" y="302" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<rect x="64" y="316" width="150" height="36" rx="6" fill="#c2410c" stroke="#c2410c"/>
+<text x="139.0" y="339.0" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">Start bereiding</text>
+<rect x="226" y="316" width="120" height="36" rx="6" fill="#ffffff" stroke="#c2410c"/>
+<text x="286.0" y="339.0" font-size="13" fill="#c2410c" font-weight="600" text-anchor="middle">Annuleren</text>
+<rect x="48" y="380" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="64" y="410" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#13 · Anna · 21:01</text>
+<text x="64" y="438" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="64" y="460" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="64" y="482" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<rect x="64" y="496" width="150" height="36" rx="6" fill="#c2410c" stroke="#c2410c"/>
+<text x="139.0" y="519.0" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">Start bereiding</text>
+<rect x="226" y="496" width="120" height="36" rx="6" fill="#ffffff" stroke="#c2410c"/>
+<text x="286.0" y="519.0" font-size="13" fill="#c2410c" font-weight="600" text-anchor="middle">Annuleren</text>
+<rect x="48" y="560" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="64" y="590" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#14 · Anna · 21:02</text>
+<text x="64" y="618" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="64" y="640" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="64" y="662" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<rect x="64" y="676" width="150" height="36" rx="6" fill="#c2410c" stroke="#c2410c"/>
+<text x="139.0" y="699.0" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">Start bereiding</text>
+<rect x="226" y="676" width="120" height="36" rx="6" fill="#ffffff" stroke="#c2410c"/>
+<text x="286.0" y="699.0" font-size="13" fill="#c2410c" font-weight="600" text-anchor="middle">Annuleren</text>
+<rect x="444" y="150" width="396" height="620" rx="6" fill="#f4f1ec" stroke="#e5e1da"/>
+<text x="460" y="182" font-size="16" fill="#1f2328" font-weight="600" text-anchor="start">In bereiding (2)</text>
+<rect x="460" y="200" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="476" y="230" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#15 · Anna · 21:00</text>
+<text x="476" y="258" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="476" y="280" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="476" y="302" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<rect x="476" y="316" width="150" height="36" rx="6" fill="#c2410c" stroke="#c2410c"/>
+<text x="551.0" y="339.0" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">Geserveerd</text>
+<rect x="638" y="316" width="120" height="36" rx="6" fill="#ffffff" stroke="#c2410c"/>
+<text x="698.0" y="339.0" font-size="13" fill="#c2410c" font-weight="600" text-anchor="middle">Annuleren</text>
+<rect x="460" y="380" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="476" y="410" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#16 · Anna · 21:01</text>
+<text x="476" y="438" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="476" y="460" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="476" y="482" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<rect x="476" y="496" width="150" height="36" rx="6" fill="#c2410c" stroke="#c2410c"/>
+<text x="551.0" y="519.0" font-size="13" fill="#ffffff" font-weight="600" text-anchor="middle">Geserveerd</text>
+<rect x="638" y="496" width="120" height="36" rx="6" fill="#ffffff" stroke="#c2410c"/>
+<text x="698.0" y="519.0" font-size="13" fill="#c2410c" font-weight="600" text-anchor="middle">Annuleren</text>
+<rect x="856" y="150" width="396" height="620" rx="6" fill="#f4f1ec" stroke="#e5e1da"/>
+<text x="872" y="182" font-size="16" fill="#1f2328" font-weight="600" text-anchor="start">Geserveerd (4)</text>
+<rect x="872" y="200" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="888" y="230" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#18 · Anna · 21:00</text>
+<text x="888" y="258" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="888" y="280" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="888" y="302" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<rect x="872" y="380" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="888" y="410" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#19 · Anna · 21:01</text>
+<text x="888" y="438" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="888" y="460" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="888" y="482" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<rect x="872" y="560" width="364" height="164" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="888" y="590" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">#20 · Anna · 21:02</text>
+<text x="888" y="618" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Type: Zero)</text>
+<text x="888" y="640" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="888" y="662" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 6,50</text>
+<text x="32" y="800" font-size="11" fill="#5b6470" font-weight="400" text-anchor="start">Kolommen per status. Onder 64rem breedte staan de kolommen onder elkaar.</text>
+</svg>

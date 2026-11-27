@@ -1,0 +1,28 @@
+@startuml
+title Navigatie per rol
+start
+:Inloggen;
+if (Rol?) then (gast)
+  repeat
+    :Menu;
+    if (Product met opties?) then (ja)
+      :Opties kiezen;
+    endif
+    :Toevoegen aan winkelwagen;
+  repeat while (Nog iets toevoegen?) is (ja) not (Bestellen)
+  :Mijn bestellingen;
+else (medewerker of beheerder)
+  :Bestellingen van het event;
+  split
+    :Status wijzigen;
+  split again
+    :Menu (namens gast bestellen);
+  split again
+    -[#c2410c,dashed]->
+    :Producten / Voorraad /\nEvents / Gebruikers;
+    note right: alleen beheerder
+  end split
+endif
+:Uitloggen;
+stop
+@enduml

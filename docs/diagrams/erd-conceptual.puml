@@ -1,0 +1,72 @@
+@startuml
+title Conceptueel ERD
+hide circle
+hide empty members
+skinparam linetype polyline
+skinparam nodesep 60
+skinparam ranksep 60
+
+entity Gebruiker {
+  gebruikersnaam
+  wachtwoord
+  is18plus
+}
+entity Rol {
+  naam
+}
+entity Event {
+  naam
+  starttijd
+  eindtijd
+  loopt
+}
+entity Bestelling {
+  nummer
+  status
+  aangemaakt op
+}
+entity Bestelregel {
+  productnaam
+  opties
+  stukprijs
+  aantal
+}
+entity Product {
+  naam
+  omschrijving
+  foto
+  categorie
+  prijs
+  is18plus
+  verborgen
+}
+entity Optiegroep {
+  naam
+}
+entity Optie {
+  naam
+}
+entity Voorraaditem {
+  naam
+  eenheid
+  hoeveelheid
+}
+entity Voorraadmutatie {
+  verschil
+  reden
+  gebruiker
+  tijdstip
+}
+
+Gebruiker }o--o{ Rol : heeft
+Event ||--o{ Bestelling : omvat
+Gebruiker ||--o{ Bestelling : bestelt (gast)
+Gebruiker ||--o{ Bestelling : plaatst
+Bestelling ||--|{ Bestelregel : bestaat uit
+Product ||--o{ Bestelregel : wordt besteld in
+Product ||--o{ Optiegroep : heeft
+Optiegroep ||--|{ Optie : bevat
+Product }o--o{ Voorraaditem : verbruikt\n(hoeveelheid)
+Optie }o--o{ Voorraaditem : verbruikt extra\n(hoeveelheid)
+Voorraaditem ||--o{ Voorraadmutatie : wordt gemuteerd door
+@enduml

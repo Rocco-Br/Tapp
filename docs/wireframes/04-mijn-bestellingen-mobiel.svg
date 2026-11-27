@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 720" width="360" height="720" font-family="system-ui, sans-serif">
+<title>Wireframe mijn bestellingen, mobiel</title>
+<rect width="360" height="720" fill="#faf8f5"/>
+<rect x="0" y="0" width="360" height="56" rx="0" fill="#ffffff" stroke="#e5e1da"/>
+<text x="16" y="35" font-size="20" fill="#c2410c" font-weight="700" text-anchor="start">Tapp</text>
+<text x="344" y="35" font-size="22" fill="#1f2328" font-weight="400" text-anchor="end">☰</text>
+<text x="16" y="92" font-size="28" fill="#1f2328" font-weight="600" text-anchor="start">Mijn bestellingen</text>
+<rect x="16" y="116" width="328" height="104" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="32" y="146" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">Bestelling #14 · 21:00</text>
+<rect x="220" y="130" width="112" height="24" rx="12" fill="#ffffff" stroke="#c2410c"/>
+<text x="276" y="147" font-size="12" fill="#c2410c" font-weight="600" text-anchor="middle">In bereiding</text>
+<text x="32" y="174" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">2× Cola (Zero)</text>
+<text x="32" y="200" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 5,00</text>
+<rect x="16" y="236" width="328" height="104" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="32" y="266" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">Bestelling #11 · 21:01</text>
+<rect x="220" y="250" width="112" height="24" rx="12" fill="#ffffff" stroke="#0f766e"/>
+<text x="276" y="267" font-size="12" fill="#0f766e" font-weight="600" text-anchor="middle">Geserveerd</text>
+<text x="32" y="294" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Bier</text>
+<text x="32" y="320" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 5,00</text>
+<rect x="16" y="356" width="328" height="104" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="32" y="386" font-size="15" fill="#1f2328" font-weight="600" text-anchor="start">Bestelling #9 · 21:02</text>
+<rect x="220" y="370" width="112" height="24" rx="12" fill="#ffffff" stroke="#b91c1c"/>
+<text x="276" y="387" font-size="12" fill="#b91c1c" font-weight="600" text-anchor="middle">Geannuleerd</text>
+<text x="32" y="414" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">1× Chips</text>
+<text x="32" y="440" font-size="14" fill="#5b6470" font-weight="400" text-anchor="start">€ 5,00</text>
+<text x="16" y="500" font-size="11" fill="#5b6470" font-weight="400" text-anchor="start">Status komt uit GET /api/orders; alleen eigen bestellingen.</text>
+</svg>

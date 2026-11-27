@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" font-family="system-ui, sans-serif">
+<title>Wireframe productbeheer, desktop</title>
+<rect width="1280" height="800" fill="#faf8f5"/>
+<rect x="0" y="0" width="1280" height="64" rx="0" fill="#ffffff" stroke="#e5e1da"/>
+<text x="32" y="40" font-size="22" fill="#c2410c" font-weight="700" text-anchor="start">Tapp</text>
+<text x="200" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Bestellingen</text>
+<text x="330" y="40" font-size="15" fill="#c2410c" font-weight="600" text-anchor="start">Producten</text>
+<text x="460" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Voorraad</text>
+<text x="590" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Events</text>
+<text x="720" y="40" font-size="15" fill="#1f2328" font-weight="400" text-anchor="start">Gebruikers</text>
+<text x="1248" y="40" font-size="14" fill="#5b6470" font-weight="400" text-anchor="end">admin · Uitloggen</text>
+<text x="32" y="120" font-size="28" fill="#1f2328" font-weight="600" text-anchor="start">Producten</text>
+<rect x="560" y="92" width="152" height="40" rx="6" fill="#c2410c" stroke="#c2410c"/>
+<text x="636.0" y="117.0" font-size="14" fill="#ffffff" font-weight="600" text-anchor="middle">+ Nieuw product</text>
+<rect x="32" y="150" width="680" height="620" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="48" y="182" font-size="13" fill="#5b6470" font-weight="600" text-anchor="start">Naam</text>
+<text x="220" y="182" font-size="13" fill="#5b6470" font-weight="600" text-anchor="start">Categorie</text>
+<text x="370" y="182" font-size="13" fill="#5b6470" font-weight="600" text-anchor="start">Prijs</text>
+<text x="460" y="182" font-size="13" fill="#5b6470" font-weight="600" text-anchor="start">18+</text>
+<text x="530" y="182" font-size="13" fill="#5b6470" font-weight="600" text-anchor="start">Verborgen</text>
+<text x="630" y="182" font-size="13" fill="#5b6470" font-weight="600" text-anchor="start">Acties</text>
+<line x1="32" y1="200" x2="712" y2="200" stroke="#e5e1da"/>
+<text x="48" y="232" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Cola</text>
+<text x="220" y="232" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Drinken</text>
+<text x="370" y="232" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">€ 2,50</text>
+<text x="460" y="232" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start"></text>
+<text x="530" y="232" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start"></text>
+<text x="630" y="232" font-size="14" fill="#c2410c" font-weight="400" text-anchor="start">Bewerken</text>
+<line x1="32" y1="252" x2="712" y2="252" stroke="#e5e1da"/>
+<text x="48" y="284" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Bier</text>
+<text x="220" y="284" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Bier</text>
+<text x="370" y="284" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">€ 3,00</text>
+<text x="460" y="284" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">ja</text>
+<text x="530" y="284" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start"></text>
+<text x="630" y="284" font-size="14" fill="#c2410c" font-weight="400" text-anchor="start">Bewerken</text>
+<line x1="32" y1="304" x2="712" y2="304" stroke="#e5e1da"/>
+<text x="48" y="336" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Chips</text>
+<text x="220" y="336" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Snacks</text>
+<text x="370" y="336" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">€ 1,50</text>
+<text x="460" y="336" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start"></text>
+<text x="530" y="336" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start"></text>
+<text x="630" y="336" font-size="14" fill="#c2410c" font-weight="400" text-anchor="start">Bewerken</text>
+<line x1="32" y1="356" x2="712" y2="356" stroke="#e5e1da"/>
+<text x="48" y="388" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Wijn</text>
+<text x="220" y="388" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Bier</text>
+<text x="370" y="388" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">€ 3,50</text>
+<text x="460" y="388" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">ja</text>
+<text x="530" y="388" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">ja</text>
+<text x="630" y="388" font-size="14" fill="#c2410c" font-weight="400" text-anchor="start">Bewerken</text>
+<rect x="736" y="150" width="512" height="620" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="760" y="186" font-size="18" fill="#1f2328" font-weight="600" text-anchor="start">Product bewerken: Cola</text>
+<text x="760" y="214" font-size="13" fill="#1f2328" font-weight="600" text-anchor="start">Naam</text>
+<rect x="760" y="222" width="464" height="40" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="760" y="284" font-size="13" fill="#1f2328" font-weight="600" text-anchor="start">Categorie</text>
+<rect x="760" y="292" width="464" height="40" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="760" y="354" font-size="13" fill="#1f2328" font-weight="600" text-anchor="start">Prijs (€)</text>
+<rect x="760" y="362" width="464" height="40" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="760" y="424" font-size="13" fill="#1f2328" font-weight="600" text-anchor="start">Omschrijving</text>
+<rect x="760" y="432" width="464" height="40" rx="6" fill="#ffffff" stroke="#e5e1da"/>
+<text x="760" y="500" font-size="13" fill="#5b6470" font-weight="400" text-anchor="start">Optiegroep "Type": Zero (1 fles zero), Normaal (1 fles normaal)</text>
+<text x="760" y="524" font-size="13" fill="#5b6470" font-weight="400" text-anchor="start">Voorraadverbruik: voorraaditem + hoeveelheid per stuk</text>
+<rect x="760" y="540" width="16" height="16" rx="3" fill="#ffffff" stroke="#e5e1da"/>
+<text x="784" y="553" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">18+</text>
+<rect x="840" y="540" width="16" height="16" rx="3" fill="#ffffff" stroke="#e5e1da"/>
+<text x="864" y="553" font-size="14" fill="#1f2328" font-weight="400" text-anchor="start">Verborgen</text>
+<rect x="760" y="576" width="96" height="96" rx="4" fill="#f1eee9" stroke="#e5e1da"/>
+<line x1="760" y1="576" x2="856" y2="672" stroke="#e5e1da"/><line x1="856" y1="576" x2="760" y2="672" stroke="#e5e1da"/>
+<rect x="872" y="606" width="140" height="36" rx="6" fill="#ffffff" stroke="#c2410c"/>
+<text x="942.0" y="629.0" font-size="13" fill="#c2410c" font-weight="600" text-anchor="middle">Foto uploaden</text>
+<rect x="760" y="700" width="140" height="44" rx="6" fill="#c2410c" stroke="#c2410c"/>
+<text x="830.0" y="727.0" font-size="15" fill="#ffffff" font-weight="600" text-anchor="middle">Opslaan</text>
+<rect x="912" y="700" width="140" height="44" rx="6" fill="#ffffff" stroke="#c2410c"/>
+<text x="982.0" y="727.0" font-size="15" fill="#c2410c" font-weight="600" text-anchor="middle">Verwijderen</text>
+</svg>

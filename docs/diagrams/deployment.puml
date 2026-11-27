@@ -1,0 +1,30 @@
+@startuml
+title Deploymentdiagram
+skinparam nodesep 60
+skinparam ranksep 60
+left to right direction
+
+node "Telefoon of laptop" <<device>> as Client {
+  node "Webbrowser" <<execution environment>> as Browser {
+    artifact "Tapp SPA\n(HTML, CSS, JS)" as Spa
+  }
+}
+
+node "Server of laptop met Docker" <<device>> as Host {
+  node "Docker-container tapp\n(poort 8080)" <<execution environment>> as Container {
+    node ".NET 10 / Kestrel" <<execution environment>> as Runtime {
+      artifact "Tapp.Api.dll\nREST API, Identity, EF Core" as Api
+      artifact "wwwroot/\ngebouwde SvelteKit-bestanden" as Www
+    }
+  }
+  storage "Docker-volume /data" as Volume {
+    database "tapp.db\n(SQLite)" as Db
+    folder "pictures/" as Pics
+  }
+}
+
+Browser --> Runtime : HTTP(S), JSON\n+ sessiecookie
+Api --> Db : EF Core
+Api --> Pics : opslaan en serveren
+Www ..> Spa : eenmalig gedownload
+@enduml
