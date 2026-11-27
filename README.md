@@ -15,7 +15,8 @@ Sized for home use: max ~50 guests per event. Keep it small, add nothing without
 | Rate limiting | Built-in ASP.NET Core rate limiter | Order spam prevention |
 | 18+ and stock rules | Enforced server-side only | Never trust the UI |
 | Frontend | SvelteKit (adapter-static, SPA mode, no SSR), TypeScript | Small bundles, routing included |
-| Frontend extras | Tailwind, `@microsoft/signalr`, `@vite-pwa/sveltekit` | One job each |
+| Styling | Plain CSS in `web/src/app.css`, custom properties for colors and sizes | Kept apart from the HTML and W3C-valid |
+| Frontend extras | `@microsoft/signalr`, `@vite-pwa/sveltekit` | One job each |
 | Hosting | Single Docker container, the API serves the built frontend | Same origin: no CORS, simple cookies. Product pictures on a volume |
 | Tests | xUnit (API) | Stock and 18+ logic |
 
