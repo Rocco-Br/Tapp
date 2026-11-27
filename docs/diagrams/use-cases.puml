@@ -1,0 +1,45 @@
+@startuml
+left to right direction
+skinparam nodesep 30
+skinparam ranksep 80
+
+actor Gast
+actor Medewerker
+actor Beheerder
+Medewerker <|-- Beheerder
+
+rectangle "Tapp" {
+  usecase "UC-01 Inloggen / uitloggen" as UC01
+  usecase "UC-02 Menu bekijken" as UC02
+  usecase "UC-03 Bestelling plaatsen" as UC03
+  usecase "UC-04 Eigen bestellingen\nbekijken" as UC04
+  usecase "UC-05 Bestellingen van\nevent bekijken" as UC05
+  usecase "UC-06 Status bestelling\nwijzigen" as UC06
+  usecase "UC-07 Bestellen namens gast" as UC07
+  usecase "UC-08 Producten beheren" as UC08
+  usecase "UC-09 Voorraad beheren" as UC09
+  usecase "UC-10 Event starten / stoppen" as UC10
+  usecase "UC-11 Gebruikers beheren" as UC11
+  usecase "Controle 18+" as Check18
+  usecase "Voorraad afboeken" as Deduct
+}
+
+Gast --> UC01
+Gast --> UC02
+Gast --> UC03
+Gast --> UC04
+Medewerker --> UC01
+Medewerker --> UC02
+Medewerker --> UC05
+Medewerker --> UC06
+Medewerker --> UC07
+Beheerder --> UC08
+Beheerder --> UC09
+Beheerder --> UC10
+Beheerder --> UC11
+
+UC03 ..> Check18 : <<include>>
+UC03 ..> Deduct : <<include>>
+UC07 ..> Check18 : <<include>>
+UC07 ..> Deduct : <<include>>
+@enduml

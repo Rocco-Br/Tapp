@@ -1,0 +1,119 @@
+@startuml
+title Relationeel schema
+hide circle
+hide empty members
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+entity AspNetUsers {
+  * Id : TEXT <<PK>>
+  --
+  UserName : TEXT
+  PasswordHash : TEXT
+  * Is18Plus : INTEGER
+}
+entity AspNetRoles {
+  * Id : TEXT <<PK>>
+  --
+  Name : TEXT
+}
+entity AspNetUserRoles {
+  * UserId : TEXT <<PK, FK>>
+  * RoleId : TEXT <<PK, FK>>
+}
+entity Events {
+  * Id : INTEGER <<PK>>
+  --
+  * Name : TEXT
+  * StartedAt : TEXT
+  EndedAt : TEXT
+  * IsRunning : INTEGER <<unique als 1>>
+}
+entity Orders {
+  * Id : INTEGER <<PK>>
+  --
+  * EventId : INTEGER <<FK>>
+  * GuestId : TEXT <<FK>>
+  * PlacedById : TEXT <<FK>>
+  * Status : TEXT
+  * CreatedAt : TEXT
+}
+entity OrderLine {
+  * Id : INTEGER <<PK>>
+  --
+  * OrderId : INTEGER <<FK>>
+  * ProductId : INTEGER <<geen FK, momentopname>>
+  * ProductName : TEXT
+  Options : TEXT
+  * UnitPriceCents : INTEGER
+  * Quantity : INTEGER
+}
+entity Products {
+  * Id : INTEGER <<PK>>
+  --
+  * Name : TEXT
+  Description : TEXT
+  PicturePath : TEXT
+  * Category : TEXT
+  * PriceCents : INTEGER
+  * Is18Plus : INTEGER
+  * IsHidden : INTEGER
+}
+entity OptionGroup {
+  * Id : INTEGER <<PK>>
+  --
+  * ProductId : INTEGER <<FK>>
+  * Name : TEXT
+}
+entity Option {
+  * Id : INTEGER <<PK>>
+  --
+  * OptionGroupId : INTEGER <<FK>>
+  * Name : TEXT
+}
+entity StockItems {
+  * Id : INTEGER <<PK>>
+  --
+  * Name : TEXT
+  * Unit : TEXT
+  * Quantity : INTEGER
+}
+entity Products_Stock {
+  * Id : INTEGER <<PK>>
+  --
+  * OwnerId : INTEGER <<FK>>
+  * StockItemId : INTEGER <<FK>>
+  * Amount : INTEGER
+}
+entity Option_Stock {
+  * Id : INTEGER <<PK>>
+  --
+  * OwnerId : INTEGER <<FK>>
+  * StockItemId : INTEGER <<FK>>
+  * Amount : INTEGER
+}
+entity StockLogs {
+  * Id : INTEGER <<PK>>
+  --
+  * StockItemId : INTEGER <<FK>>
+  * Delta : INTEGER
+  * Reason : TEXT
+  * User : TEXT
+  * At : TEXT
+}
+
+AspNetUsers ||--o{ AspNetUserRoles
+AspNetRoles ||--o{ AspNetUserRoles
+Events ||--o{ Orders : RESTRICT
+AspNetUsers ||--o{ Orders : GuestId, RESTRICT
+AspNetUsers ||--o{ Orders : PlacedById, RESTRICT
+Orders ||--|{ OrderLine : CASCADE
+Products ||--o{ OptionGroup : CASCADE
+OptionGroup ||--|{ Option : CASCADE
+Products ||--o{ Products_Stock : CASCADE
+StockItems ||--o{ Products_Stock : RESTRICT
+Option ||--o{ Option_Stock : CASCADE
+StockItems ||--o{ Option_Stock : RESTRICT
+StockItems ||--o{ StockLogs : CASCADE
+@enduml

@@ -1,0 +1,195 @@
+@startuml
+title Gelaagd klassendiagram (MVC)
+hide empty members
+set separator none
+skinparam nodesep 40
+skinparam ranksep 60
+skinparam packageStyle rectangle
+
+package "View (web/src/routes)" {
+  class LoginPage <<Svelte>>
+  class MenuPage <<Svelte>>
+  class MyOrdersPage <<Svelte>>
+  class OrdersPage <<Svelte>>
+  class AdminPages <<Svelte>>
+}
+
+package "Controller (api/Tapp.Api/*/Endpoints)" {
+  class AuthEndpoints <<static>> {
+    + MapAuth(app)
+    - Login(LoginRequest) : IResult
+    - Logout() : IResult
+    - Me() : IResult
+    - CreateUser(CreateUserRequest) : IResult
+    - ListUsers() : List<UserDto>
+    - UpdateUser(id, UpdateUserRequest) : IResult
+    - DeleteUser(id) : IResult
+  }
+  class CatalogEndpoints <<static>> {
+    + MapCatalog(app)
+    - ListProducts() : List<ProductDto>
+    - CreateProduct(ProductDto) : IResult
+    - UpdateProduct(id, ProductDto) : IResult
+    - DeleteProduct(id) : IResult
+    - UploadPicture(id, IFormFile) : IResult
+    - Validate(ProductDto) : IResult
+  }
+  class StockEndpoints <<static>> {
+    + MapStock(app)
+    - ListStock() : List<StockItemDto>
+    - CreateStockItem(StockItemRequest) : IResult
+    - UpdateStockItem(id, StockItemRequest) : IResult
+    - DeleteStockItem(id) : IResult
+    - Correct(id, CorrectionRequest) : IResult
+    - Log(id) : List<StockLog>
+  }
+  class EventEndpoints <<static>> {
+    + MapEvents(app)
+    - Current() : IResult
+    - ListEvents() : List<Event>
+    - Start(StartEventRequest) : IResult
+    - Stop() : IResult
+  }
+  class OrderEndpoints <<static>> {
+    + MapOrders(app)
+    - PlaceAsync(PlaceOrderRequest, ClaimsPrincipal, UserManager, AppDbContext) : IResult
+    - ListOrders() : List<OrderDto>
+    - SetStatus(id, OrderStatusRequest) : IResult
+    - ToDto(Order) : OrderDto
+  }
+}
+
+package "Model (api/Tapp.Api/Data)" {
+  class AppUser {
+    + Id : string
+    + UserName : string
+    + Is18Plus : bool
+  }
+  class Event {
+    + Id : int
+    + Name : string
+    + StartedAt : DateTime
+    + EndedAt : DateTime?
+    + IsRunning : bool
+  }
+  class Order {
+    + Id : int
+    + EventId : int
+    + GuestId : string
+    + PlacedById : string
+    + Status : OrderStatus
+    + CreatedAt : DateTime
+    + Lines : List<OrderLine>
+  }
+  class OrderLine {
+    + Id : int
+    + ProductId : int
+    + ProductName : string
+    + Options : string?
+    + UnitPriceCents : int
+    + Quantity : int
+  }
+  enum OrderStatus {
+    New
+    Preparing
+    Served
+    Cancelled
+  }
+  class Product {
+    + Id : int
+    + Name : string
+    + Category : string
+    + PriceCents : int
+    + Is18Plus : bool
+    + IsHidden : bool
+    + Stock : List<StockAmount>
+    + OptionGroups : List<OptionGroup>
+  }
+  class OptionGroup {
+    + Id : int
+    + Name : string
+    + Options : List<Option>
+  }
+  class Option {
+    + Id : int
+    + Name : string
+    + Stock : List<StockAmount>
+  }
+  class StockAmount <<value object>> {
+    + StockItemId : int
+    + Amount : int
+  }
+  class StockItem {
+    + Id : int
+    + Name : string
+    + Unit : string
+    + Quantity : int
+  }
+  class StockLog {
+    + Id : int
+    + StockItemId : int
+    + Delta : int
+    + Reason : string
+    + User : string
+    + At : DateTime
+  }
+}
+
+package "Data access" {
+  class AppDbContext {
+    + Products : DbSet<Product>
+    + StockItems : DbSet<StockItem>
+    + StockLogs : DbSet<StockLog>
+    + Events : DbSet<Event>
+    + Orders : DbSet<Order>
+    + SaveChangesAsync() : int
+    + BeginTransactionAsync() : Transaction
+  }
+  class UserManager <<Identity>> {
+    + GetUserAsync(ClaimsPrincipal) : AppUser
+    + FindByIdAsync(id) : AppUser
+    + CreateAsync(AppUser, password) : IdentityResult
+    + GetRolesAsync(AppUser) : List<string>
+  }
+  class SignInManager <<Identity>> {
+    + PasswordSignInAsync(user, password) : SignInResult
+    + SignOutAsync()
+  }
+}
+
+LoginPage ..> AuthEndpoints : HTTP JSON
+MenuPage ..> CatalogEndpoints : HTTP JSON
+MenuPage ..> OrderEndpoints : HTTP JSON
+MyOrdersPage ..> OrderEndpoints : HTTP JSON
+OrdersPage ..> OrderEndpoints : HTTP JSON
+AdminPages ..> CatalogEndpoints : HTTP JSON
+AdminPages ..> StockEndpoints : HTTP JSON
+AdminPages ..> EventEndpoints : HTTP JSON
+AdminPages ..> AuthEndpoints : HTTP JSON
+
+AuthEndpoints ..> UserManager
+AuthEndpoints ..> SignInManager
+CatalogEndpoints ..> AppDbContext
+StockEndpoints ..> AppDbContext
+EventEndpoints ..> AppDbContext
+OrderEndpoints ..> AppDbContext
+OrderEndpoints ..> UserManager
+
+AppDbContext --> Product
+AppDbContext --> StockItem
+AppDbContext --> StockLog
+AppDbContext --> Event
+AppDbContext --> Order
+UserManager --> AppUser
+
+Product "1" *-- "0..*" OptionGroup
+OptionGroup "1" *-- "1..*" Option
+Product "1" *-- "0..*" StockAmount
+Option "1" *-- "0..*" StockAmount
+StockAmount "0..*" --> "1" StockItem
+StockItem "1" -- "0..*" StockLog
+Event "1" -- "0..*" Order
+AppUser "1" -- "0..*" Order : gast / geplaatst door
+Order "1" *-- "1..*" OrderLine
+Order --> OrderStatus
+@enduml

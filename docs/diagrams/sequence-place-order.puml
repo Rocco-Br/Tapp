@@ -1,0 +1,47 @@
+@startuml
+title UC-03 Bestelling plaatsen (POST /api/orders)
+autonumber
+skinparam maxMessageSize 170
+skinparam wrapWidth 200
+
+actor Gast
+participant MenuPage
+participant OrderEndpoints
+participant UserManager
+participant AppDbContext
+
+Gast -> MenuPage : tikt op "Bestellen"
+MenuPage -> OrderEndpoints : PlaceAsync(PlaceOrderRequest)
+OrderEndpoints -> UserManager : GetUserAsync(principal)
+UserManager --> OrderEndpoints : AppUser (gast)
+
+OrderEndpoints -> AppDbContext : Events (lopend event)
+AppDbContext --> OrderEndpoints : Event
+alt geen lopend event
+  OrderEndpoints --> MenuPage : 409 Conflict
+  MenuPage --> Gast : "Er loopt nu geen event"
+end
+
+OrderEndpoints -> AppDbContext : Products (met OptionGroups, Options, StockAmount)
+AppDbContext --> OrderEndpoints : producten
+
+alt gast niet 18+ en 18+-product in bestelling
+  OrderEndpoints --> MenuPage : 403 Forbidden
+  MenuPage --> Gast : "Deze bestelling bevat 18+-producten"
+end
+
+loop per bestelregel
+  OrderEndpoints -> OrderEndpoints : opties controleren,\nOrderLine aanmaken,\nverbruik optellen
+end
+
+OrderEndpoints -> AppDbContext : BeginTransactionAsync()
+loop per gebruikt StockItem
+  OrderEndpoints -> AppDbContext : StockItems (Quantity verlagen, minimaal 0)
+end
+OrderEndpoints -> AppDbContext : Orders (Order toevoegen)
+OrderEndpoints -> AppDbContext : SaveChangesAsync()
+note over OrderEndpoints, AppDbContext : transactie wordt gecommit: voorraad en bestelling samen of niets
+OrderEndpoints -> OrderEndpoints : ToDto(Order)
+OrderEndpoints --> MenuPage : 201 Created + OrderDto
+MenuPage --> Gast : bevestiging met nummer en totaal
+@enduml
